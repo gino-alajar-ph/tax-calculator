@@ -110,4 +110,5 @@ class GothenburgCongestionTaxCalculatorTest {
         assertEquals(1, taxResults.size());
         assertEquals(0, taxResults.get("2013-02-09"));
     }
+
 }
