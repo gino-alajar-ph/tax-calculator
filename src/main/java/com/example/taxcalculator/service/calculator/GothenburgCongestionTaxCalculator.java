@@ -46,10 +46,6 @@ public class GothenburgCongestionTaxCalculator implements CongestionTaxCalculato
 
     @Override
     public Map<String, Integer> calculateDailyTax(List<String> timestamps, Vehicle vehicle) throws ParseException {
-        List<String> exemptedVehicles = jsonDataLoader.getExemptedVehiclesForCity("Gothenburg");
-        if (exemptedVehicles.contains(vehicle.getVehicleType().toUpperCase())) {
-            return Collections.emptyMap();
-        }
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat dayFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -95,4 +91,5 @@ public class GothenburgCongestionTaxCalculator implements CongestionTaxCalculato
     public String toString() {
         return "GothenburgCongestionTaxCalculator";
     }
+
 }

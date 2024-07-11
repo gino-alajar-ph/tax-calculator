@@ -1,7 +1,6 @@
 package com.example.taxcalculator.controller;
 
 import com.example.taxcalculator.model.TaxCalculationRequest;
-import com.example.taxcalculator.model.Vehicle;
 import com.example.taxcalculator.service.CongestionTaxService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.text.ParseException;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -21,13 +21,8 @@ public class CongestionTaxController {
     private CongestionTaxService congestionTaxService;
 
     @PostMapping("/calculate")
-    public ResponseEntity<Map<String, Integer>> calculate(@Valid @RequestBody TaxCalculationRequest request) throws ParseException {
-        Vehicle vehicle = request.getVehicle();
-        Map<String, Integer> dailyTaxes = congestionTaxService.calculateTax(
-                request.getCity(),
-                vehicle,
-                request.getTimestamps()
-        );
-        return ResponseEntity.ok(dailyTaxes);
+    public ResponseEntity<List<Map<String, Object>>> calculate(@Valid @RequestBody List<TaxCalculationRequest> requests) throws ParseException {
+        List<Map<String, Object>> response = congestionTaxService.calculateTaxes(requests);
+        return ResponseEntity.ok(response);
     }
 }
