@@ -1,6 +1,6 @@
 ### Additional Assumptions and Questions
 
-1. **Application Type and Usage:**
+**1. **Application Type and Usage:**
     - Since the assignment is about a congestion tax calculator, will this application run as a job or a service (real-time)?
         - I assume this will be both since we can have a UI where we can just use the VIN (Vehicle Identification Number) and Date Range.
         - At the same time, we can have a job that will run on a monthly basis to charge all vehicles.
@@ -31,4 +31,4 @@
 
 7. **Testing and Validation:**
     - How will you ensure the accuracy of the congestion tax calculations?
-    - What types of tests will you implement (unit tests, integration tests, end-to-end tests)?
+    - What types of tests will you implement (unit tests, integration tests, end-to-end tests)?**
