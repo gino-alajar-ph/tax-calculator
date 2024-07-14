@@ -32,8 +32,25 @@ public class GothenburgCongestionTaxCalculator implements CongestionTaxCalculato
         return holidays.contains(date);
     }
 
+    private boolean isDayBeforeHoliday(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
+        Date nextDay = calendar.getTime();
+        return isHoliday(nextDay);
+    }
+
+    private boolean isInJuly(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int month = calendar.get(Calendar.MONTH);
+        return month == Calendar.JULY;
+    }
+
     private int getTax(Date date) throws ParseException {
-        if (isWeekend(date) || isHoliday(date)) return 0;
+        if (isWeekend(date) || isHoliday(date) || isDayBeforeHoliday(date) || isInJuly(date)) {
+            return 0;
+        }
 
         List<TaxPeriod> taxPeriods = jsonDataLoader.getTaxPeriodsForCity("Gothenburg");
         for (TaxPeriod period : taxPeriods) {
@@ -46,7 +63,6 @@ public class GothenburgCongestionTaxCalculator implements CongestionTaxCalculato
 
     @Override
     public Map<String, Integer> calculateDailyTax(List<String> timestamps, Vehicle vehicle) throws ParseException {
-
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat dayFormat = new SimpleDateFormat("yyyy-MM-dd");
         Map<String, List<Date>> groupedByDate = new HashMap<>();
@@ -91,5 +107,4 @@ public class GothenburgCongestionTaxCalculator implements CongestionTaxCalculato
     public String toString() {
         return "GothenburgCongestionTaxCalculator";
     }
-
 }
